@@ -25,6 +25,10 @@ class Line (Edge) :
         if slope == 'v': 
             return self.midpoint.x
         return self.midpoint.y - self.midpoint.x * self.slope
+    
+    @property 
+    def radius(self) -> float: 
+        return self.start.distance(self.end) / 2
         
     
     def _get_slope(self) -> float:
@@ -42,7 +46,11 @@ class Line (Edge) :
         if self.intercept != self.intercept: 
             return False 
         
-        max_distance = 
+        max_distance = self.radius + other.radius
+        mid_distance = self.midpoint.distance(other.midpoint)
+        
+        
+        
         #determine if the lines lie on the same line 
         
         
