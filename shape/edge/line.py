@@ -15,6 +15,16 @@ class Line (Edge) :
         mid_x = (self._start.x + self._end.x) / 2
         mid_y = (self._start.y + self._end.y) / 2
         return Coordinate(mid_x,mid_y)
+    
+    @property
+    def intercept(self) -> float: 
+        '''
+        returns the y intercept unless the slope is 'v' than returns the x intercept
+        '''
+        slope = self.slope 
+        if slope == 'v': 
+            return self.midpoint.x
+        return self.midpoint.y - self.midpoint.x * self.slope
         
     
     def _get_slope(self) -> float:
@@ -26,8 +36,15 @@ class Line (Edge) :
     
     def crossing(self, other: "Line") -> bool: 
         
+        #determine if lines have the same slope 
         if self.slope != other.slope : 
             return False
+        if self.intercept != self.intercept: 
+            return False 
+        
+        max_distance = 
+        #determine if the lines lie on the same line 
+        
         
         
         
