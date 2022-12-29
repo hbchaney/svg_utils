@@ -1,4 +1,4 @@
-
+import math
 
 #class for handling the coordinate 
 
@@ -28,3 +28,35 @@ class Coordinate:
     
     def __str__(self) -> str:
         return f"({self._x}, {self._y})"
+    
+    def x_distance(self, other: "Coordinate") -> float: 
+        '''
+        distance between two x components
+        '''
+        return abs(self.x - other.x) 
+    
+    def y_distance(self, other: "Coordinate") -> float: 
+        '''
+        distance between two y components
+        '''
+        return abs(self.y - other.y)
+    
+    def distance(self, other: "Coordinate") -> float: 
+        '''
+        distance between two Coordinates (caution uses sqrt)
+        '''
+        return math.sqrt((self.x_distance(other))**2 + (self.y_distnace(other))**2)
+    
+    def distance2(self, other: "Coordinate") -> float: 
+        '''
+        returns the distance squared between two points 
+        '''
+        return (self.x_distance(other))**2 + (self.y_distnace(other))**2
+    
+    def __add__(self, other: "Coordinate") -> "Coordinate": 
+        return Coordinate(self.x + other.x, self.y + other.y) 
+    
+    def __sub__(self,other: "Coordinate") -> "Coordinate": 
+        return Coordinate(self.x - other.x,self.y - other.y)
+    
+    
