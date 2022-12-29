@@ -1,5 +1,5 @@
 from edge import Edge
-from coordinate import Coordinate
+from edge import Coordinate
 
 class BoundingBox : 
     
@@ -72,7 +72,7 @@ class BoundingBox :
     def get_data(self): 
         return [self._midpoint,self._rx,self._ry].copy() 
         
-    def box_intersection(self,other : BoundingBox) -> BoundingBox: 
+    def box_intersection(self, other : BoundingBox) -> BoundingBox: 
         temp = other.get_data()
         
         other_mid = temp[0] 
