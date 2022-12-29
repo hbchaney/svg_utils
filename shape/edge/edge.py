@@ -1,6 +1,4 @@
 #edge class that repressent a single segment in a 
-import numpy as np
-
 from .coordinate import Coordinate
 
 
