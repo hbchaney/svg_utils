@@ -1,5 +1,6 @@
 from edge import Edge
 from coordinate import Coordinate
+
 class BoundingBox : 
     
     def __init__(self, edges: list[Edge]=None, data_in : list[Coordinate,float] = None) -> None: 
@@ -28,28 +29,28 @@ class BoundingBox :
         #going through each edge 
         for e in edges: 
             #max x 
-            if e.start.x() >= temp_maxx: 
-                temp_maxx = e.start.x()
-            if e.end.x() >= temp_maxx: 
-                temp_maxx = e.end.x() 
+            if e.start.x >= temp_maxx: 
+                temp_maxx = e.start.x
+            if e.end.x >= temp_maxx: 
+                temp_maxx = e.end.x
                 
             #min x 
-            if e.start.x() <= temp_minx: 
-                temp_minx = e.start.x() 
-            if e.end.x() <= temp_minx: 
-                temp_minx = e.end.x() 
+            if e.start.x <= temp_minx: 
+                temp_minx = e.start.x
+            if e.end.x <= temp_minx: 
+                temp_minx = e.end.x
             
             #max y 
-            if e.start.y() >= temp_maxy: 
-                temp_maxy= e.start.y() 
-            if e.end.y() >= temp_maxy: 
-                temp_maxy = e.end.y() 
+            if e.start.y >= temp_maxy: 
+                temp_maxy= e.start.y 
+            if e.end.y >= temp_maxy: 
+                temp_maxy = e.end.y 
                 
             #min y 
-            if e.start.y() <= temp_miny: 
-                temp_miny = e.start.y() 
-            if e.end.y() <= temp_miny: 
-                temp_miny = e.end.y() 
+            if e.start.y <= temp_miny: 
+                temp_miny = e.start.y 
+            if e.end.y <= temp_miny: 
+                temp_miny = e.end.y 
                 
         #### Calculating the mid point and rx + ry 
         mid_x = (temp_maxx-temp_minx)/2 + temp_minx
@@ -71,7 +72,7 @@ class BoundingBox :
     def get_data(self): 
         return [self._midpoint,self._rx,self._ry].copy() 
         
-    def intersection(self,other : BoundingBox) -> BoundingBox: 
+    def box_intersection(self,other : BoundingBox) -> BoundingBox: 
         temp = other.get_data()
         
         other_mid = temp[0] 
@@ -79,17 +80,41 @@ class BoundingBox :
         other_ry = temp[2] 
         
         #compare if the x and y are in range 
-        if abs(self._midpoint.x() - other_mid.x()) <= self._rx + other_rx and abs(self._midpoint.y() - other_mid.y()) <= self._ry + other_ry:
-            new_rx = (abs(self._midpoint.x() - other_mid.x()) - (self._rx + other_rx)) / 2
-            new_ry = (abs(self._midpoint.y() - other_mid.y()) - (self._ry + other_ry)) / 2 
+        if abs(self._midpoint.x - other_mid.x) <= self._rx + other_rx and abs(self._midpoint.y - other_mid.y) <= self._ry + other_ry:
+            new_rx = (abs(self._midpoint.x - other_mid.x) - (self._rx + other_rx)) / 2
+            new_ry = (abs(self._midpoint.y - other_mid.y) - (self._ry + other_ry)) / 2 
             
-            new_mid_x = ((self._midpoint.x() + other_mid.x()) / 2)
-            new_mid_y = ((self._midpoint.x() + other_mid.y()) / 2)
+            new_mid_x = ((self._midpoint.x + other_mid.x) / 2)
+            new_mid_y = ((self._midpoint.x + other_mid.y) / 2)
             
             return BoundingBox(data_in = [Coordinate(new_mid_x,new_mid_y),new_rx,new_ry])
 
         else: 
             return False 
+        
+    def edge_intersection(self, edge : Edge) -> bool:
+        
+        #special case where the edge ends/starts on  the edge of the box but none of the line touches 
+        if abs(self._midpoint.x - edge.start.x) == self._rx and abs(self._midpoint.x - edge.end.x) > abs(self._midpoint.x - edge.start.x): 
+            return False
+        elif abs(self._midpoint.y - edge.start.y) == self._ry and abs(self._midpoint.y - edge.end.y) > abs(self._midpoint.y-edge.start.y): 
+            return False 
+        
+        if abs(self._midpoint.x - edge.end.x) == self._rx and abs(self._midpoint.x - edge.start.x) > abs(self._midpoint.x - edge.start.x): 
+            return False 
+        elif abs(self._midpoint.y - edge.end.y) == self._ry and abs(self._midpoint.y - edge.start.y) > abs(self._mipoint.y - edge.end.y): 
+            return False
+        
+        #start check 
+        if abs(edge.start.x - self._midpoint.x) <= self._rx and abs(edge.start.y - self._midpoint.y) <= self._ry: 
+            return True 
+        #end check 
+        elif abs(edge.end.x - self._midpoint.x) <= self._rx and abs(edge.end.y - self._midpoint.y) <= self._ry: 
+            return True 
+        
+        # ^ needs some testing 
+        return  
+        
         
         
         
