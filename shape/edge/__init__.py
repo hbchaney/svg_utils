@@ -1,2 +1,2 @@
-from edge import *
-from coordinate import * 
+from edge import Edge
+from coordinate import Coordinate

@@ -5,8 +5,8 @@ from .coordinate import Coordinate
 
 
 class Edge : 
-    """_summary_
-    sasdlkalsd
+    """
+    Parent class for all types of path transformations
     """
     
     def __init__(self,_start: Coordinate, _end: Coordinate) -> None:
@@ -22,16 +22,6 @@ class Edge :
     def end(self) -> Coordinate:
         return self._end
     
-    @property 
-    def slope(self):
-        return self._get_slope() 
-    
-    def _get_slope(self) -> float:
-        if (self._start.x - self.end.x == 0):
-            return np.nan
-        vertical_change = self._end.y - self._start.y
-        horiz_change = self._end.x - self._end.x
-        return vertical_change / horiz_change
     
         
     
