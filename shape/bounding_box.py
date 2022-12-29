@@ -113,7 +113,9 @@ class BoundingBox :
             return True 
         
         # ^ needs some testing 
-        return  
+    
+    def __str__(self): 
+        return f'middle : {self._midpoint}\nrx : {self._rx}\nry : {self._ry}'
         
         
         
