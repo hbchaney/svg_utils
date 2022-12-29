@@ -1,5 +1,5 @@
-from edge import Edge
-from edge import Coordinate
+from .edge import Edge
+from .edge import Coordinate
 
 class BoundingBox : 
     

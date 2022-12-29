@@ -1,7 +1,7 @@
 
 # shape with a combination of edges 
-from edge import Edge
-from bounding_box import BoundingBox
+from .edge import Edge
+from .bounding_box import BoundingBox
 
 class Shape: 
     """
