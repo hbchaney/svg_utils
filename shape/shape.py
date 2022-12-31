@@ -1,14 +1,21 @@
 
 # shape with a combination of edges 
-from edge import Edge
-from bounding_box import BoundingBox
+from .edge import Edge
+from .bounding_box import BoundingBox
 
-class Shape : 
+class Shape: 
+    """
+    I am shape
+    """
     
     def __init__(self,
-                 _edges : list[Edge],
-                 _id : str) -> None:  
-        self._edges = _edges 
+                 _id: str,
+                 _edges: list[Edge]=None,
+                 ) -> None:  
+        if _edges is not None:
+            self._edges = _edges 
+        else:
+            self._edges = list()
         self._id = _id 
         self.__get_bounding_box()
          
