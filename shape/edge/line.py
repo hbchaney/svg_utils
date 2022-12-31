@@ -8,10 +8,18 @@ class Line (Edge) :
     
     def __init__(self, _start : Coordinate, _end : Coordinate): 
         super().__init__(_start,_end)
+        self._radius = None 
+        self._slope = None 
+        self._midpoint = None 
+        self._intercept = None
         
     @property 
     def slope(self) -> float:
-        return self._get_slope() 
+        if self._slope is not None:
+            return self._slope 
+        else: 
+            self._slope = self._get_slope() 
+            return self._slope
     
     @property 
     def midpoint(self) -> Coordinate:
@@ -31,7 +39,10 @@ class Line (Edge) :
     
     @property 
     def radius(self) -> float: 
-        return self.start.distance(self.end) / 2
+        if hasattr(self,'radius'): 
+            return self.radius
+        self.radius = self.start.distance(self.end) / 2
+        return self.radius
         
     
     def _get_slope(self) -> float:
@@ -66,7 +77,7 @@ class Line (Edge) :
         4 : special case returns new line for self and new line for other 
         '''
         
-        if self.radis * 2 == other.radius * 2: 
+        if self.radis * 2 == other.radius * 2 and self.midpoint == other.midpoint
             
         #determine if the lines lie on the same line 
         

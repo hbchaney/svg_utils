@@ -45,13 +45,13 @@ class Coordinate:
         '''
         distance between two Coordinates (caution uses sqrt)
         '''
-        return math.sqrt((self.x_distance(other))**2 + (self.y_distnace(other))**2)
+        return math.sqrt((self.x_distance(other))**2 + (self.y_distance(other))**2)
     
     def distance2(self, other: "Coordinate") -> float: 
         '''
         returns the distance squared between two points 
         '''
-        return (self.x_distance(other))**2 + (self.y_distnace(other))**2
+        return (self.x_distance(other))**2 + (self.y_distance(other))**2
     
     def __add__(self, other: "Coordinate") -> "Coordinate": 
         return Coordinate(self.x + other.x, self.y + other.y) 
