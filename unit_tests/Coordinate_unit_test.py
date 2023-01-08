@@ -1,5 +1,7 @@
-import 
+import test_setup
+test_setup.add_parent() 
 
+from shape.edge import Coordinate
 #### Coordinate unit tests 
 def run_test(): 
     c1 = Coordinate(1.50003,.749993) 
@@ -25,4 +27,5 @@ def run_test():
     print(c1 + c2) 
     print(c1 - c2) 
 
+run_test()
 

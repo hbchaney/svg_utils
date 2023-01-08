@@ -1,3 +1,2 @@
-from .edge import *
-from .edge.coordinate import *
+from .edge import edge 
 from .shape import Shape
