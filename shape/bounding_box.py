@@ -1,4 +1,5 @@
 from .edge import Edge
+from .edge import Line
 from .edge import Coordinate
 
 class BoundingBox : 
@@ -21,10 +22,10 @@ class BoundingBox :
     def __find_bounding_from_edges(self,edges : list[Edge]) -> None: 
         
         # initializing the edges 
-        temp_minx = edges[0].start.x()
-        temp_miny = edges[0].start.y()
-        temp_maxx = edges[0].start.x()
-        temp_maxy = edges[0].start.y() 
+        temp_minx = edges[0].start.x
+        temp_miny = edges[0].start.y
+        temp_maxx = edges[0].start.x
+        temp_maxy = edges[0].start.y
         
         #going through each edge 
         for e in edges: 
@@ -81,8 +82,8 @@ class BoundingBox :
         
         #compare if the x and y are in range 
         if abs(self._midpoint.x - other_mid.x) <= self._rx + other_rx and abs(self._midpoint.y - other_mid.y) <= self._ry + other_ry:
-            new_rx = (abs(self._midpoint.x - other_mid.x) - (self._rx + other_rx)) / 2
-            new_ry = (abs(self._midpoint.y - other_mid.y) - (self._ry + other_ry)) / 2 
+            new_rx = (-abs(self._midpoint.x - other_mid.x) + (self._rx + other_rx)) / 2
+            new_ry = (-abs(self._midpoint.y - other_mid.y) + (self._ry + other_ry)) / 2 
             
             new_mid_x = ((self._midpoint.x + other_mid.x) / 2)
             new_mid_y = ((self._midpoint.x + other_mid.y) / 2)
@@ -102,7 +103,7 @@ class BoundingBox :
         
         if abs(self._midpoint.x - edge.end.x) == self._rx and abs(self._midpoint.x - edge.start.x) > abs(self._midpoint.x - edge.start.x): 
             return False 
-        elif abs(self._midpoint.y - edge.end.y) == self._ry and abs(self._midpoint.y - edge.start.y) > abs(self._mipoint.y - edge.end.y): 
+        elif abs(self._midpoint.y - edge.end.y) == self._ry and abs(self._midpoint.y - edge.start.y) > abs(self._midpoint.y - edge.end.y): 
             return False
         
         #start check 
@@ -111,6 +112,8 @@ class BoundingBox :
         #end check 
         elif abs(edge.end.x - self._midpoint.x) <= self._rx and abs(edge.end.y - self._midpoint.y) <= self._ry: 
             return True 
+
+        return False
         
         # ^ needs some testing 
     
