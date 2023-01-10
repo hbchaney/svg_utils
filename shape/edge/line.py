@@ -81,9 +81,35 @@ class Line (Edge) :
         3 : other should be deleted 
         4 : special case returns new line for self and new line for other 
         '''
+
+        #top_right 
         
-        if self.radis * 2 == other.radius * 2 and self.midpoint == other.midpoint: 
-            return
+        if self._radius * 2 == other.radius * 2 and self.midpoint == other.midpoint: 
+            return 1
+        m_d = self.midpoint.distance(other.midpoint)
+        if m_d + other.radius < self._radius: 
+            return 3
+        elif m_d + self.radius < other.radius: 
+            return 2
+        else: 
+            #check the slope 
+            checks = [self._start,self._end,other.start,other.end]
+            if self._slope != 0: 
+                #looks for the y coordinates on the extremes
+                top = max(checks,key = lambda point : point.y)
+                bottom = min(checks,key = lambda point : point.y) 
+                return Line(bottom,top) 
+
+            elif self._slope == 0: 
+                #looks for the x coordinates on the extremes 
+                top = max(checks,key = lambda point : point.x) 
+                bottom = min(checks, key = lambda point : point.x) 
+                return Line(top,bottom) 
+            else: 
+
+                
+
+            
             
         #determine if the lines lie on the same line 
         
