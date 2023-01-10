@@ -100,12 +100,11 @@ class Line (Edge) :
                 bottom = min(checks,key = lambda point : point.y) 
                 return Line(bottom,top) 
 
-            elif self._slope == 0: 
+            else:
                 #looks for the x coordinates on the extremes 
                 top = max(checks,key = lambda point : point.x) 
                 bottom = min(checks, key = lambda point : point.x) 
                 return Line(top,bottom) 
-            else: 
 
                 
 
