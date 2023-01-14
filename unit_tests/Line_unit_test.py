@@ -18,6 +18,7 @@ def Line_test():
     
     #check to see if l2 and l1 have some conflicts 
     print(l1.crossing(l2))
+    print(l2.cross_type(l2))
     
 Line_test()
 
