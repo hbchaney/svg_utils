@@ -21,10 +21,10 @@ class BoundingBox :
     def __find_bounding_from_edges(self,edges : list[Edge]) -> None: 
         
         # initializing the edges 
-        temp_minx = edges[0].start.x()
-        temp_miny = edges[0].start.y()
-        temp_maxx = edges[0].start.x()
-        temp_maxy = edges[0].start.y() 
+        temp_minx = edges[0].start.x
+        temp_miny = edges[0].start.y
+        temp_maxx = edges[0].start.x
+        temp_maxy = edges[0].start.y 
         
         #going through each edge 
         for e in edges: 
