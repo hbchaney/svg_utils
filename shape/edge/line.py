@@ -79,7 +79,7 @@ class Line (Edge) :
         1 : either can be deleted 
         2 : self should be deleted 
         3 : other should be deleted 
-        4 : special case returns new line for self and new line for other 
+        4 : returns a new line to replace self with delete the other line
         '''
 
         #top_right 
