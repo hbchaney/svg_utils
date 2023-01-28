@@ -83,5 +83,15 @@ class Shape:
 
         return 
 
+    def __str__(self) -> None: 
+        '''
+        returns some descriptors: 
+            edges 
+            the bounding box 
+        '''
+        bb = self.bounding_box
+        ed = self.edges 
+        return (f'shape id : {self._id}\nboudingbox: \n{bb}\nno egdes : {len(ed)}\nedges : \n{ed}')
+
 
         

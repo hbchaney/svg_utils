@@ -113,6 +113,11 @@ class BoundingBox :
         elif abs(edge.end.x - self._midpoint.x) <= self._rx and abs(edge.end.y - self._midpoint.y) <= self._ry: 
             return True 
 
+        #2d edge case 
+
+        if self._rx == 0 or self._ry == 0: 
+            #create an edge with  then run edge to edge intersection
+
         return False
         
         # ^ needs some testing 
