@@ -79,14 +79,17 @@ class BoundingBox :
         other_mid = temp[0] 
         other_rx = temp[1] 
         other_ry = temp[2] 
+    
         
         #compare if the x and y are in range 
         if abs(self._midpoint.x - other_mid.x) <= self._rx + other_rx and abs(self._midpoint.y - other_mid.y) <= self._ry + other_ry:
             new_rx = (-abs(self._midpoint.x - other_mid.x) + (self._rx + other_rx)) / 2
             new_ry = (-abs(self._midpoint.y - other_mid.y) + (self._ry + other_ry)) / 2 
             
-            new_mid_x = ((self._midpoint.x + other_mid.x) / 2)
-            new_mid_y = ((self._midpoint.x + other_mid.y) / 2)
+            dir_x = ((other_mid.x-self._midpoint.x)/abs(other_mid.x-self._midpoint.x))
+            dir_y = ((other_mid.y-self._midpoint.y)/abs(other_mid.y-self._midpoint.y))
+            new_mid_x = self._midpoint.x +  dir_x*self._rx + -1*dir_x*new_rx
+            new_mid_y = self._midpoint.y + dir_y*self._ry + -1*dir_y*new_ry 
             
             return BoundingBox(data_in = [Coordinate(new_mid_x,new_mid_y),new_rx,new_ry])
 
@@ -114,9 +117,6 @@ class BoundingBox :
             return True 
 
         #2d edge case 
-
-        if self._rx == 0 or self._ry == 0: 
-            #create an edge with  then run edge to edge intersection
 
         return False
         

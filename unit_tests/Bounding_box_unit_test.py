@@ -48,9 +48,38 @@ def test_bounding_box() -> None:
     print(bb1.edge_intersection(l4))
 
 
+def test_2d_bounding (): 
+    '''
+    tests if a 2d bounding box is created when 2 
+    '''
+    
+    l1 = Line(Coordinate(0,2),Coordinate(2,2))
+    l2 = Line(Coordinate(0,0),Coordinate(0,2))
+    l3 = Line(Coordinate(2,2),Coordinate(2,-2))
+    
+    l_test = Line(Coordinate(2,1),Coordinate(2,0))
+    # print(l_test) 
+
+
+    bb1 = BoundingBox()
+    bb2 = BoundingBox()
+
+    
+    bb1.set_bounding_box([l1,l2])
+    bb2.set_bounding_box([l3]) 
+    
+    bb3 = bb1.box_intersection(bb2)
+    print(bb3)
+    
+    print(bb3.edge_intersection(l_test))
+    
+    
+    # print(bb1)
+    # print(bb2)
     
 
 
 
 
-test_bounding_box() 
+# test_bounding_box() 
+test_2d_bounding()
