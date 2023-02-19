@@ -44,11 +44,11 @@ class Shape:
         other_to_delete = [] 
 
         for i,edges in enumerate(self.edges): 
-            if collision_box.edge_intersection(edges) and type(edges) == Line:
+            if type(edges) == Line and collision_box.edge_intersection(edges):
                 self_to_compare.append(i) 
 
         for i,edges in enumerate(other.edges): 
-            if collision_box.edge_intersection(edges) and type(edges) == Line: 
+            if type(edges) == Line and collision_box.edge_intersection(edges): 
                 other_to_compare.append(i) 
 
         #compare each line the in collision box to see if there are any collisions 

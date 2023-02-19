@@ -79,6 +79,12 @@ class BoundingBox :
         other_mid = temp[0] 
         other_rx = temp[1] 
         other_ry = temp[2] 
+        
+        #check if boxes are on top of each other 
+        if other_mid.x - self._midpoint.x == 0 or other_mid.y - self._midpoint.y == 0: 
+            tx = min(self._rx,other_rx)
+            ty = min(self._ry,other_ry)
+            return BoundingBox(data_in=[self._midpoint,tx,ty])
     
         
         #compare if the x and y are in range 
