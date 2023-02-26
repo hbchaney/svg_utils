@@ -1,4 +1,5 @@
 from .edge import Edge
+from .edge import Line
 from .edge import Coordinate
 
 class BoundingBox : 
@@ -24,7 +25,7 @@ class BoundingBox :
         temp_minx = edges[0].start.x
         temp_miny = edges[0].start.y
         temp_maxx = edges[0].start.x
-        temp_maxy = edges[0].start.y 
+        temp_maxy = edges[0].start.y
         
         #going through each edge 
         for e in edges: 
@@ -79,13 +80,22 @@ class BoundingBox :
         other_rx = temp[1] 
         other_ry = temp[2] 
         
+        #check if boxes are on top of each other 
+        if other_mid.x - self._midpoint.x == 0 or other_mid.y - self._midpoint.y == 0: 
+            tx = min(self._rx,other_rx)
+            ty = min(self._ry,other_ry)
+            return BoundingBox(data_in=[self._midpoint,tx,ty])
+    
+        
         #compare if the x and y are in range 
         if abs(self._midpoint.x - other_mid.x) <= self._rx + other_rx and abs(self._midpoint.y - other_mid.y) <= self._ry + other_ry:
-            new_rx = (abs(self._midpoint.x - other_mid.x) - (self._rx + other_rx)) / 2
-            new_ry = (abs(self._midpoint.y - other_mid.y) - (self._ry + other_ry)) / 2 
+            new_rx = (-abs(self._midpoint.x - other_mid.x) + (self._rx + other_rx)) / 2
+            new_ry = (-abs(self._midpoint.y - other_mid.y) + (self._ry + other_ry)) / 2 
             
-            new_mid_x = ((self._midpoint.x + other_mid.x) / 2)
-            new_mid_y = ((self._midpoint.x + other_mid.y) / 2)
+            dir_x = ((other_mid.x-self._midpoint.x)/abs(other_mid.x-self._midpoint.x))
+            dir_y = ((other_mid.y-self._midpoint.y)/abs(other_mid.y-self._midpoint.y))
+            new_mid_x = self._midpoint.x +  dir_x*self._rx + -1*dir_x*new_rx
+            new_mid_y = self._midpoint.y + dir_y*self._ry + -1*dir_y*new_ry 
             
             return BoundingBox(data_in = [Coordinate(new_mid_x,new_mid_y),new_rx,new_ry])
 
@@ -102,7 +112,7 @@ class BoundingBox :
         
         if abs(self._midpoint.x - edge.end.x) == self._rx and abs(self._midpoint.x - edge.start.x) > abs(self._midpoint.x - edge.start.x): 
             return False 
-        elif abs(self._midpoint.y - edge.end.y) == self._ry and abs(self._midpoint.y - edge.start.y) > abs(self._mipoint.y - edge.end.y): 
+        elif abs(self._midpoint.y - edge.end.y) == self._ry and abs(self._midpoint.y - edge.start.y) > abs(self._midpoint.y - edge.end.y): 
             return False
         
         #start check 
@@ -111,6 +121,10 @@ class BoundingBox :
         #end check 
         elif abs(edge.end.x - self._midpoint.x) <= self._rx and abs(edge.end.y - self._midpoint.y) <= self._ry: 
             return True 
+
+        #2d edge case 
+
+        return False
         
         # ^ needs some testing 
     

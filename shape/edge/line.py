@@ -1,23 +1,36 @@
-from typing import Union
-
-from edge import Edge
-from edge import Coordinate
+from .edge import Edge
+from .coordinate import Coordinate
 
 
 class Line (Edge) : 
     
     def __init__(self, _start : Coordinate, _end : Coordinate): 
         super().__init__(_start,_end)
+        self._radius = None 
+        self._slope = None 
+        self._midpoint = None 
+        self._intercept = None
+        
+    def __str__(self): 
+        return f'slope : {self.slope}\nmidpoint : {self.midpoint}'
         
     @property 
     def slope(self) -> float:
-        return self._get_slope() 
+        if self._slope is not None:
+            return self._slope 
+        else: 
+            self._slope = self._get_slope() 
+            return self._slope
     
     @property 
     def midpoint(self) -> Coordinate:
-        mid_x = (self._start.x + self._end.x) / 2
-        mid_y = (self._start.y + self._end.y) / 2
-        return Coordinate(mid_x,mid_y)
+        if self._midpoint is None: 
+            mid_x = (self._start.x + self._end.x) / 2
+            mid_y = (self._start.y + self._end.y) / 2
+            self._midpoint = Coordinate(mid_x,mid_y)
+            return self._midpoint
+        else: 
+            return self._midpoint
     
     @property
     def intercept(self) -> float: 
@@ -31,14 +44,17 @@ class Line (Edge) :
     
     @property 
     def radius(self) -> float: 
-        return self.start.distance(self.end) / 2
-        
+        if self._radius is None:
+            self._radius = self.start.distance(self.end) / 2
+            return self._radius
+        else: 
+            return self._radius
     
     def _get_slope(self) -> float:
-        if (self._start.x - self.end.x == 0):
+        if (self._start.x - self._end.x == 0):
             return 'v'
         vertical_change = self._end.y - self._start.y
-        horiz_change = self._end.x - self._end.x
+        horiz_change = self._end.x - self._start.x
         return vertical_change / horiz_change
     
     def crossing(self, other: "Line") -> bool: 
@@ -57,16 +73,42 @@ class Line (Edge) :
         else: 
             return False
         
-    def cross_type(self,other: "Line") -> Union[int,list("Line")]: 
+    def cross_type(self,other: "Line"): 
         '''
         determines the type of crossing that has occured and returns the condition 
         1 : either can be deleted 
         2 : self should be deleted 
         3 : other should be deleted 
-        4 : special case returns new line for self and new line for other 
+        4 : returns a new line to replace self with delete the other line
         '''
+
+        #top_right 
         
-        if self.radis * 2 == other.radius * 2: 
+        if self._radius * 2 == other.radius * 2 and self.midpoint == other.midpoint: 
+            return 1
+        m_d = self.midpoint.distance(other.midpoint)
+        if m_d + other.radius < self._radius: 
+            return 3
+        elif m_d + self.radius < other.radius: 
+            return 2
+        else: 
+            #check the slope 
+            checks = [self._start,self._end,other.start,other.end]
+            if self._slope != 0: 
+                #looks for the y coordinates on the extremes
+                top = max(checks,key = lambda point : point.y)
+                bottom = min(checks,key = lambda point : point.y) 
+                return Line(bottom,top) 
+
+            else:
+                #looks for the x coordinates on the extremes 
+                top = max(checks,key = lambda point : point.x) 
+                bottom = min(checks, key = lambda point : point.x) 
+                return Line(top,bottom) 
+
+                
+
+            
             
         #determine if the lines lie on the same line 
         
