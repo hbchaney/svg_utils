@@ -45,8 +45,10 @@ class PathWriter:
             } 
             
         tree = ET.ElementTree(svg)
+        ET.indent(tree,'    ')
         ET.ElementTree.write(tree, 
-                             self.svg_output_location + '/' + self.svg_output_name)
+                             self.svg_output_location + '/' + self.svg_output_name,
+                             encoding="utf-8")
         
     
     def set_max_x(self, max_param : float): 

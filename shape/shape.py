@@ -99,8 +99,7 @@ class Shape:
         ''' 
         long_str = ''
         for e in self.edges: 
-            if type(e) == Line: 
-                long_str += e.get_path() + '\n'
+            long_str += e.get_path() + ' '
                 
         return long_str
     

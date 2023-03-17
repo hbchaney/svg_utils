@@ -9,7 +9,7 @@ __parent_dir__ = os.path.realpath(os.path.join(__location__, ".."))
 if __parent_dir__ not in sys.path:
     sys.path.insert(0, __parent_dir__)
 
-from path_reader import PathReader
+from file.path_reader import PathReader
 from shape import Shape
 
 class SvgReader:

@@ -12,7 +12,6 @@ class PathWriterTests(ut.TestCase):
         output_name = "super_test.svg"
         output_location = r"F:\Projects\Modular Storage Shelf\Python Utilities\svg_utils\test_files"
         self.path_writer = PathWriter(output_name,output_location)
-        print()
         return 
     
     def test_add_path(self): 

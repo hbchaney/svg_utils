@@ -19,6 +19,14 @@ class Edge :
     @property
     def end(self) -> Coordinate:
         return self._end
+
+        
+    def get_path(self) -> str: 
+        '''
+        returns a str repressenting the absolute path of a line
+        ''' 
+        
+        return f'M {self._start._x},{self._start._y} L {self.end._x},{self.end._y}'
     
     
         
