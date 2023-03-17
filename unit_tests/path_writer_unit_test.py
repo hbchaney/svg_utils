@@ -9,7 +9,7 @@ from file.path_writer import PathWriter
 class PathWriterTests(ut.TestCase): 
     
     def setUp(self): 
-        output_name = "test_svg"
+        output_name = "super_test.svg"
         output_location = r"F:\Projects\Modular Storage Shelf\Python Utilities\svg_utils\test_files"
         self.path_writer = PathWriter(output_name,output_location)
         print()
