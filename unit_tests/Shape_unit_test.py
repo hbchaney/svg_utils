@@ -41,6 +41,7 @@ def shape_unit():
     print(s3.get_max_y())
 
     s1.compare_lines(s2)
+    s1.compare_lines(s3)
 
     print(s1)
     return 

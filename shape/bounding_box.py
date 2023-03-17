@@ -100,7 +100,7 @@ class BoundingBox :
             return BoundingBox(data_in = [Coordinate(new_mid_x,new_mid_y),new_rx,new_ry])
 
         else: 
-            return False 
+            return None
         
     def edge_intersection(self, edge : Edge) -> bool:
         
