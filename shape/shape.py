@@ -92,6 +92,34 @@ class Shape:
         bb = self.bounding_box
         ed = self.edges 
         return (f'shape id : {self._id}\nboudingbox: \n{bb}\nno egdes : {len(ed)}\nedges : \n{ed}')
+    
+    def get_paths(self) -> str: 
+        '''
+        returns the full path of all the edges in the shape 
+        ''' 
+        long_str = ''
+        for e in self.edges: 
+            if type(e) == Line: 
+                long_str += e.get_path() + '\n'
+                
+        return long_str
+    
+    def get_max_x(self) -> float: 
+        
+        def x_key(edge_value : Edge) -> float: 
+            return max([edge_value.start.x,edge_value.end.x])
+        
+        max_x_edge = max(self.edges,key=x_key)
+        return max(max_x_edge.start.x,max_x_edge.end.x)
+    
+    def get_max_y(self) -> float: 
+        
+        def y_key(edge_value : Edge) -> float: 
+            return max([edge_value.start.y,edge_value.end.y])
+        
+        max_y_edge = max(self.edges,key=y_key)
+        return max(max_y_edge.start.y,max_y_edge.end.y) 
+        
 
 
         

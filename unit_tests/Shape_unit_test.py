@@ -28,6 +28,17 @@ def shape_unit():
 
     s2 = Shape([l5,l6,l7,l8],'rect 2')
     print(s2)
+    
+    #Shape 3 
+    lright = Line(Coordinate(50,10),Coordinate(50,60))
+    lleft = Line(Coordinate(10,10),Coordinate(10,60))
+    ltop = Line(Coordinate(10,10),Coordinate(50,10))
+    lbottom = Line(Coordinate(10,60),Coordinate(50,60))
+    s3 = Shape([lright,lleft,ltop,lbottom],"big shape")
+    print(s3.get_paths())
+    
+    print(s3.get_max_x()) 
+    print(s3.get_max_y())
 
     s1.compare_lines(s2)
 

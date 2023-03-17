@@ -106,11 +106,13 @@ class Line (Edge) :
                 bottom = min(checks, key = lambda point : point.x) 
                 return Line(top,bottom) 
 
-                
-
-            
-            
-        #determine if the lines lie on the same line 
+    def get_path(self) -> str: 
+        '''
+        returns a str repressenting the absolute path of a line
+        ''' 
+        
+        return f'M {self._start._x},{self._start._y} L {self.end._x},{self.end._y}'
+        
         
         
         

@@ -10,11 +10,13 @@ def Line_test():
     # v slope 
     l1_5 = Line(Coordinate(1.5,9),Coordinate(1.5,3))
     print(l1)
+    print(l1.get_path()) 
     # print(l1_5)
     
     #intercept test 
     l2 = Line(Coordinate(0,-.5),Coordinate(3,4))
     print(l2)
+    print(l2.get_path()) 
     
     #check to see if l2 and l1 have some conflicts 
     print(l1.crossing(l2))

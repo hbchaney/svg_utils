@@ -9,7 +9,7 @@ __parent_dir__ = os.path.realpath(os.path.join(__location__, ".."))
 if __parent_dir__ not in sys.path:
     sys.path.insert(0, __parent_dir__)
 
-from .path_reader import PathReader
+from path_reader import PathReader
 from shape import Shape
 
 class SvgReader:
@@ -65,7 +65,8 @@ if __name__ == '__main__':
     print("" == None)
 
     shape_arr = SvgReader().get_shapes(os.path.join(folder, filename))
-    print(shape_arr)
+    [print(shapes) for shapes in shape_arr]
+
 
 
    
