@@ -24,15 +24,16 @@ class Shape:
         #resets the new bounding box
         self.bounding_box = BoundingBox(edges = self.edges) 
 
-    def compare_lines(self, other: "Shape") -> None: 
+    def compare_lines(self, other: "Shape") -> "Shape": 
         '''
-        compares the lines of self and other and determines what to do with the edges 
+        compares the lines of self and other and determines what to do with the edges
+        returns the modified other shape  
         '''
 
         #find the the overlap box 
         collision_box = self.bounding_box.box_intersection(other.bounding_box)
         if collision_box is None: 
-            return 
+            return None
         
 
         #list of indicies to compare 
@@ -81,7 +82,7 @@ class Shape:
         for values in other_to_delete: 
             del other.edges[values]
 
-        return 
+        return other
 
     def __str__(self) -> None: 
         '''

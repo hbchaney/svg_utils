@@ -9,8 +9,7 @@ __parent_dir__ = os.path.realpath(os.path.join(__location__, ".."))
 if __parent_dir__ not in sys.path:
     sys.path.insert(0, __parent_dir__)
 
-from shape import Shape, Coordinate, Edge
-
+from shape import Shape, Coordinate, Edge, Line
 class MatchDescription:
     """
     Helper struct for holdind match information while parsing an svg path.
@@ -168,7 +167,7 @@ class PathReader:
                     self._current_coord.y + match_info.coords[1]
                 )
             self._shape.append(
-                Edge(self._current_coord, ending_coord)
+                Line(self._current_coord, ending_coord)
             )
             self._current_coord = ending_coord
         self._parsing_path = self._parsing_path[match_info.end_index:]

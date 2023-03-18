@@ -30,22 +30,39 @@ class ReadandCompareTest(ut.TestCase):
         print(self.shapes[0].edges)
     
     def test_compare_shapes(self) -> None: 
-        # for i,shape in enumerate(self.shapes[:len(self.shapes)-1]):
-        #     for shapes in self.shapes[i+1:]:
-        #         self.shapes[i].compare_lines(shapes) 
-        pass
+        for i,shapes in enumerate(self.shapes[:len(self.shapes)-1]):
+            for shapes in self.shapes[i+1:]:
+                self.shapes[i].compare_lines(shapes) 
+                
+        output_name = "super_test_read_cleaned.svg"
+        output_location = r"F:\Projects\Modular Storage Shelf\Python Utilities\svg_utils\test_files"
+        self.path_writer = PathWriter(output_name,output_location)
+        max_x_list = [] 
+        max_y_list = [] 
+        for s in self.shapes: 
+            self.path_writer.add_path_dvalue(s.get_paths())
+            max_x_list.append(s.get_max_x())
+            max_y_list.append(s.get_max_y())
+        
+        self.path_writer.set_max_x(max(max_x_list))
+        self.path_writer.set_max_y(max(max_y_list))
+        self.path_writer.create_svg()
+        
     
     def test_make_svg(self) -> None: 
         output_name = "super_test_read.svg"
         output_location = r"F:\Projects\Modular Storage Shelf\Python Utilities\svg_utils\test_files"
         self.path_writer = PathWriter(output_name,output_location)
+        max_x_list = [] 
+        max_y_list = [] 
         for s in self.shapes: 
             self.path_writer.add_path_dvalue(s.get_paths())
+            max_x_list.append(s.get_max_x())
+            max_y_list.append(s.get_max_y())
         
+        self.path_writer.set_max_x(max(max_x_list))
+        self.path_writer.set_max_y(max(max_y_list))
         self.path_writer.create_svg()
-                 
-            
-            
     
     
 def tests(): 

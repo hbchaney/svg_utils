@@ -52,12 +52,6 @@ class SvgReader:
         return pr.to_shape()
         
 
-
-
-
-
-    
-
 if __name__ == '__main__':
     folder = os.path.join(__parent_dir__, "test_files")
     filename = "Spice_rack_cut_01.svg"
