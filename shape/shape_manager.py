@@ -13,7 +13,7 @@ class ShapeManager:
         
         for i in range(len(self.shape_list)): 
             x = new_shape.compare_lines(self.shape_list[i])
-            if x != None: 
+            if x is not None: 
                 self.shape_list[i] = x 
         
         self.shape_list.append(new_shape) 
