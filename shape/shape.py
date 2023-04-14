@@ -44,6 +44,7 @@ class Shape:
         self_to_delete = [] 
         other_to_delete = [] 
 
+        #add edges to be compared
         for i,edges in enumerate(self.edges): 
             if type(edges) == Line and collision_box.edge_intersection(edges):
                 self_to_compare.append(i) 

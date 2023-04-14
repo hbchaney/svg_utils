@@ -2,7 +2,7 @@ from .edge import Edge
 from .coordinate import Coordinate
 
 
-class Line (Edge) : 
+class Line(Edge) : 
     
     def __init__(self, _start : Coordinate, _end : Coordinate): 
         super().__init__(_start,_end)
@@ -81,8 +81,6 @@ class Line (Edge) :
         3 : other should be deleted 
         4 : returns a new line to replace self with delete the other line
         '''
-
-        #top_right 
         
         if self._radius * 2 == other.radius * 2 and self.midpoint == other.midpoint: 
             return 1
