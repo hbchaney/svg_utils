@@ -7,7 +7,7 @@ class ShapeManager:
 
     def __init__(self): 
         
-        self.shape_list = []
+        self.shape_list : list[Shape] = []
         
     def add_and_compare_shape(self, new_shape : Shape) -> None: 
         

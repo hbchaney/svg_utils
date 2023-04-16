@@ -1,4 +1,5 @@
 from xml.etree import ElementTree as ET
+from typing import Union
 
 class DefaultWriter: 
     
@@ -14,7 +15,7 @@ class PathWriter:
     
     def __init__(self,
                  output_name : str,
-                 output_location : str, 
+                 output_location : Union[str,None], 
                  defaults : DefaultWriter = DefaultWriter()): 
         
         self.defaults = defaults
@@ -46,10 +47,15 @@ class PathWriter:
             
         tree = ET.ElementTree(svg)
         ET.indent(tree,'    ')
-        ET.ElementTree.write(tree, 
-                             self.svg_output_location + '/' + self.svg_output_name,
-                             encoding="utf-8")
-        
+        if self.svg_output_location is not None: 
+            ET.ElementTree.write(tree, 
+                                self.svg_output_location + '/' + self.svg_output_name,
+                                encoding="utf-8")
+        else: 
+             ET.ElementTree.write(tree, 
+                                self.svg_output_name,
+                                encoding="utf-8")
+            
     
     def set_max_x(self, max_param : float): 
         '''
