@@ -21,7 +21,7 @@ class Edge :
         return self._end
 
         
-    def get_path(self) -> str: 
+    def get_path(self, move_free : bool = False) -> str: 
         '''
         returns a str repressenting the absolute path of a line
         ''' 

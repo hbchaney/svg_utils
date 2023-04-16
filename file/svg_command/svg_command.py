@@ -16,7 +16,7 @@ from shape import Shape, Coordinate, Edge, Line
 #
 class ProcessedCommand: 
     
-    def __init__(self, new_position : Coordinate, data : Union[str,Edge,None] ) -> None: 
+    def __init__(self, new_position : Coordinate, data : Union[str,Line,None] ) -> None: 
         self.new_position = new_position
         self.data = data
         
@@ -75,19 +75,26 @@ class CommandUnit:
         
         
     def __h_v_cmd(self, last_position : Coordinate) -> ProcessedCommand: 
-        if self.command == 'h' or 'H': 
+        if self.command == 'h': 
+            coord = Coordinate(
+                last_position.x + float(self.flags[0]),
+                last_position.y
+            )
+        elif self.command == 'H': 
             coord = Coordinate(
                 float(self.flags[0]),
                 last_position.y
             )
-        else: 
+        elif self.command == 'V': 
             coord = Coordinate(
                 last_position.x,
                 float(self.flags[0])
             )
-        
-        if self.command.islower(): 
-            coord = self.__local_to_global(coord,last_position)
+        else: # 'v'
+            coord = Coordinate(
+                last_position.x,
+                last_position.y + float(self.flags[0])
+            )
             
         return ProcessedCommand(coord,Line(last_position,coord))
     
@@ -101,7 +108,7 @@ class CommandUnit:
         if self.command.islower(): 
             coord = self.__local_to_global(last_position,coord)
             
-        return ProcessedCommand()
+        return ProcessedCommand(coord,Line(last_position,coord))
     
     def __other_cmd(self,last_position : Coordinate) -> ProcessedCommand: 
         
@@ -128,8 +135,8 @@ class CommandUnit:
 def parse_command_str(in_str : str) -> list[CommandUnit]: 
     command_list = [] 
     
-    regex_pattern = r'(([a-zA-Z])([^0-9a-zA-Z]*([0-9\.]+)[^0-9a-zA-Z]*)+)'
-    regex_second_pattern = r'[^0-9a-zA-Z]*([0-9\.]+)[^0-9a-zA-Z]*'
+    regex_pattern = r'(([a-zA-Z])([^0-9a-zA-Z]*([0-9\.e]+)[^0-9a-zA-Z]*)+)'
+    regex_second_pattern = r'[^0-9a-zA-Z\-]*([0-9\.\-e]+)[^0-9a-zA-Z\-]*'
     matches = re.findall(regex_pattern,in_str) 
     
     for m in matches: 
@@ -139,12 +146,38 @@ def parse_command_str(in_str : str) -> list[CommandUnit]:
         #double or more command condition
         cmd_num = CommandUnit.command_maps[command]
         repeat_num = int(len(second_matches)/ cmd_num)
-        
         for i in range(repeat_num): 
             command_list.append(CommandUnit(command,second_matches[i*cmd_num:cmd_num + i*cmd_num]))
+            if command == 'm': 
+                command = 'l'
+            elif command == 'M': 
+                command = 'L'
             
-    for cmd in command_list:
-        print(cmd) 
+    return command_list
+
+#returns line data and raw path data from other path types
+def pull_shape_data(in_str : str, starting_coord : Coordinate = Coordinate(0,0)) -> tuple[list[Line],list[str]]: 
+    
+    end_data = ([],[])
+    current_pos = starting_coord
+    cmd_list = parse_command_str(in_str) 
+    for cmds in cmd_list: 
+        proces_cmd : ProcessedCommand = cmds.process_command(current_pos) 
+        current_pos = proces_cmd.new_position
+        
+        
+        if proces_cmd.data is None:
+            next
+        elif type(proces_cmd.data) == Line: 
+            end_data[0].append(proces_cmd.data)
+        else: 
+            end_data[1].append(proces_cmd.data)
+            
+    return end_data
+            
+        
+        
+    
         
         
         
@@ -153,7 +186,10 @@ if __name__ == '__main__':
     test_str = 'm 135.00058,60.000138 h -10.00042 v 4.9997 h -19.99982 v -4.9997 H 90.000232 v 4.9997 h 5.00021 v 9.99989 h -5.00021 v 15.00012 h 5.00021 v 9.99991 h -5.00021 v 5.000222 h 15.000108 v -5.000222 h 19.99982 v 5.000222 h 10.00042 z'
     test_str2 = 'm 134.99983,60.000357 v -10.00043 h -4.99969 v -19.99981 h 4.99969 V 15 h -4.99969 v 5.000213 h -9.99991 V 15 h -15.00012 v 5.000213 h -9.9999 V 15 H 90 v 15.000117 h 5.00021 v 19.99981 H 90 v 10.00043 h 12.49897 a 10,10 0 0 1 9.99991,-10.00043 10,10 0 0 1 10.00042,10.00043 z'
     
-    parse_command_str(test_str2) 
+    cmd  = parse_command_str(test_str2)
+    for v in cmd: 
+        print(v)
+    print(pull_shape_data(test_str2))
                 
             
             

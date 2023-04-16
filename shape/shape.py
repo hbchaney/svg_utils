@@ -95,13 +95,16 @@ class Shape:
         ed = self.edges 
         return (f'shape id : {self._id}\nboudingbox: \n{bb}\nno egdes : {len(ed)}\nedges : \n{ed}')
     
-    def get_paths(self) -> str: 
+    def get_paths(self, remove_excess_moves : bool = False) -> str: 
         '''
         returns the full path of all the edges in the shape 
         ''' 
         long_str = ''
         for e in self.edges: 
             long_str += e.get_path() + ' '
+            
+        if remove_excess_moves == True: 
+            pass
                 
         return long_str
     

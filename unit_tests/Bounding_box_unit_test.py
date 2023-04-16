@@ -78,8 +78,42 @@ def test_2d_bounding ():
     # print(bb2)
     
 
-
+def test_line_on_bounding_box(): 
+    a_l1 = Line(Coordinate(80,25),
+              Coordinate(80,20))
+    
+    b_l1 = Line(Coordinate(80,25),
+              Coordinate(80,17.5))
+    
+    a_l2 = Line(Coordinate(75,25),
+                Coordinate(80,25))
+    
+    b_l2 = a_l2 
+    
+    a_l3 = Line(Coordinate(75,25),
+                Coordinate(75,20))
+    
+    b_l3 = a_l3
+    
+    a = [a_l1,a_l2,a_l3]
+    b = [b_l1,b_l2,b_l3]
+    
+    bbx_a = BoundingBox(a)
+    bbx_b = BoundingBox(b)
+    print(bbx_a)
+    print(bbx_b)
+    
+    print("intersections : ")
+    inter = bbx_a.box_intersection(bbx_b)
+    
+    print(inter) 
+    
+    print(inter.edge_intersection(a_l1))
+    print(inter.edge_intersection(b_l1))
+    
 
 
 # test_bounding_box() 
-test_2d_bounding()
+# test_2d_bounding()
+test_line_on_bounding_box()
+

@@ -22,6 +22,21 @@ def Line_test():
     print(l1.crossing(l2))
     print(l2.cross_type(l2))
     
+
+def Line_Crossing_Types(): 
+    
+    l1 = Line(Coordinate(80,25),
+              Coordinate(80,20))
+    
+    
+    
+    l2 = Line(Coordinate(80,25),
+              Coordinate(80,17.5))
+    
+    print(l1.crossing(l2))
+    print(l1.cross_type(l2))
+    
+    
 Line_test()
 
 

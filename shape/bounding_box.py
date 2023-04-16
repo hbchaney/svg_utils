@@ -72,7 +72,8 @@ class BoundingBox :
         
     def get_data(self): 
         return [self._midpoint,self._rx,self._ry].copy() 
-        
+    
+    #different for different self/other fixed
     def box_intersection(self, other: "BoundingBox") -> "BoundingBox": 
         temp = other.get_data()
         
@@ -81,7 +82,7 @@ class BoundingBox :
         other_ry = temp[2] 
         
         #check if boxes are on top of each other 
-        if other_mid.x - self._midpoint.x == 0 or other_mid.y - self._midpoint.y == 0: 
+        if other_mid.x - self._midpoint.x == 0 and other_mid.y - self._midpoint.y == 0: 
             tx = min(self._rx,other_rx)
             ty = min(self._ry,other_ry)
             return BoundingBox(data_in=[self._midpoint,tx,ty])
@@ -92,8 +93,15 @@ class BoundingBox :
             new_rx = (-abs(self._midpoint.x - other_mid.x) + (self._rx + other_rx)) / 2
             new_ry = (-abs(self._midpoint.y - other_mid.y) + (self._ry + other_ry)) / 2 
             
-            dir_x = ((other_mid.x-self._midpoint.x)/abs(other_mid.x-self._midpoint.x))
-            dir_y = ((other_mid.y-self._midpoint.y)/abs(other_mid.y-self._midpoint.y))
+            if (other_mid.x-self._midpoint.x) != 0: 
+                dir_x = ((other_mid.x-self._midpoint.x)/abs(other_mid.x-self._midpoint.x))
+            else: 
+                dir_x = 0 
+            if (other_mid.y-self._midpoint.y) != 0: 
+                dir_y = ((other_mid.y-self._midpoint.y)/abs(other_mid.y-self._midpoint.y))
+            else: 
+                dir_y = 0
+            
             new_mid_x = self._midpoint.x +  dir_x*self._rx + -1*dir_x*new_rx
             new_mid_y = self._midpoint.y + dir_y*self._ry + -1*dir_y*new_ry 
             
@@ -101,30 +109,25 @@ class BoundingBox :
 
         else: 
             return None
-        
+    
+    #not capturing correctly   
     def edge_intersection(self, edge : Edge) -> bool:
         
-        #special case where the edge ends/starts on  the edge of the box but none of the line touches 
-        if abs(self._midpoint.x - edge.start.x) == self._rx and abs(self._midpoint.x - edge.end.x) > abs(self._midpoint.x - edge.start.x): 
-            return False
-        elif abs(self._midpoint.y - edge.start.y) == self._ry and abs(self._midpoint.y - edge.end.y) > abs(self._midpoint.y-edge.start.y): 
-            return False 
+        line = Line(edge.start,edge.end)
+        x_tolerance = abs(edge.start.x - edge.end.x)/2
+        y_tolerance = abs(edge.start.y - edge.end.y)/2
         
-        if abs(self._midpoint.x - edge.end.x) == self._rx and abs(self._midpoint.x - edge.start.x) > abs(self._midpoint.x - edge.start.x): 
-            return False 
-        elif abs(self._midpoint.y - edge.end.y) == self._ry and abs(self._midpoint.y - edge.start.y) > abs(self._midpoint.y - edge.end.y): 
-            return False
+        x_distance = abs(self._midpoint.x - line.midpoint.x) 
+        y_distance = abs(self._midpoint.y - line.midpoint.y)
         
-        #start check 
-        if abs(edge.start.x - self._midpoint.x) <= self._rx and abs(edge.start.y - self._midpoint.y) <= self._ry: 
-            return True 
-        #end check 
-        elif abs(edge.end.x - self._midpoint.x) <= self._rx and abs(edge.end.y - self._midpoint.y) <= self._ry: 
-            return True 
+        if (x_distance > self._rx + x_tolerance): 
+            return False 
+        if (y_distance > self._ry + y_tolerance): 
+            return False 
 
         #2d edge case 
 
-        return False
+        return True 
         
         # ^ needs some testing 
     
