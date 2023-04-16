@@ -1,6 +1,6 @@
 # SVG Line Trimmer
 
-- utility for removing excess lines when laser cutting along svg paths 
+utility for removing excess lines when laser cutting along svg paths 
 
 ### how to use: 
 
