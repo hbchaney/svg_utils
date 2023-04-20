@@ -35,39 +35,8 @@ def main():
 
 
 def processs_data(input_file : str, output_file : str) -> None: 
-    from file.dynamic_path_reader import DynamicPathReader
-    from file.path_writer import PathWriter
-    from shape.shape import Shape 
-    from shape.shape_manager import ShapeManager
-    
-    reader = DynamicPathReader(input_file,None)
-    writer = PathWriter(output_file,None)
-    
-    shapes = reader.create_shapes(w_special=True) 
-    line_shapes = shapes[0] 
-    special_shapes = shapes[1] #data from non line objects 
-    
-    shape_manager = ShapeManager() 
-    for s in line_shapes: 
-        shape_manager.add_and_compare_shape(s) 
-        
-    for s in shape_manager.shape_list: 
-        writer.add_path_dvalue(s.get_paths())
-        
-    #creating special shape master path 
-    master_special : list[str] = []
-    for special_shape in special_shapes: 
-        for str_v in special_shape: 
-            master_special.append(str_v)
-            
-    #cleaning special construction copies
-    master_special = list(set(master_special)) 
-    master_str = ''
-    for cmds in master_special: 
-        master_str += cmds 
-    
-    writer.add_path_dvalue(master_str) 
-    writer.create_svg() 
+    from file.pathtools import read_paths
+    read_paths(input_file,output_file)
     
     
 if __name__ == '__main__': 

@@ -18,6 +18,21 @@ class ShapeManager:
         
         self.shape_list.append(new_shape) 
         
+    def get_max_x(self) -> int: 
+        
+        max_x = 0
+        for s in self.shape_list: 
+            max_x = max(s.get_max_x(),max_x)
+            
+        return max_x
+    
+    def get_max_y(self) -> int: 
+        max_y = 0 
+        for s in self.shape_list: 
+            max_y = max(s.get_max_y(), max_y) 
+            
+        return max_y
+        
     
 
 

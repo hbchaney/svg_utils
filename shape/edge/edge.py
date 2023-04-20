@@ -28,7 +28,12 @@ class Edge :
         
         return f'M {self._start._x},{self._start._y} L {self.end._x},{self.end._y}'
     
+    def get_complex(self) -> tuple[complex]: 
+        '''
+        returns complex tuple representing start and end 
+        '''
     
+        return (complex(self.start.x,self.start.y),complex(self.end.x,self.end.y))
         
     
     
