@@ -26,6 +26,13 @@ def run_test():
     print('add and subtract check') 
     print(c1 + c2) 
     print(c1 - c2) 
+    
+    
+def distance_check(): 
+    c1 = Coordinate(1.5,1.5) 
+    c2 = Coordinate(1.5,1.5) 
+    print(c1.distance(c2))
 
-run_test()
+distance_check()
+# run_test()
 

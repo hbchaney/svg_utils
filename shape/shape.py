@@ -53,6 +53,8 @@ class Shape:
             if type(edges) == Line and collision_box.edge_intersection(edges): 
                 other_to_compare.append(i) 
 
+        print("other to compare")
+        print(other_to_compare)
         #compare each line the in collision box to see if there are any collisions 
         for i in self_to_compare: 
 
@@ -67,22 +69,26 @@ class Shape:
                         self.edges[i] = crs_type
                         other_to_delete.append(j) 
                         break
-
-                    if crs_type == 1 or crs_type == 2: 
+                    elif crs_type == 1 or crs_type == 2: 
                         self_to_delete.append(i)
-                        break
                     elif crs_type == 3: 
                         other_to_delete.append(j) 
-                        break
+            
                         
 
         #sort the delete list backwards 
-        self_to_delete = sorted(self_to_delete,reverse=True)
-        other_to_delete = sorted(other_to_delete,reverse=True) 
+        self_to_delete = sorted(list(set(self_to_delete)),reverse=True)
+        other_to_delete = sorted(list(set(other_to_delete)),reverse=True) 
+        
+        print(self_to_delete)
+        print(other_to_delete)
 
+        print("deleting : ")
         for values in self_to_delete: 
+            print(self.edges[values])
             del self.edges[values] 
         for values in other_to_delete: 
+            print(other.edges[values])
             del other.edges[values]
 
         return other

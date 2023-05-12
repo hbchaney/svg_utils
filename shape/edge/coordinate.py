@@ -17,11 +17,11 @@ class Coordinate:
         return self._y
     
     def handle_float_error(self) -> None: 
-        self._x = round(self._x, 3) 
-        self._y = round(self._y, 3) 
+        self._x = round(self._x, 2) 
+        self._y = round(self._y, 2) 
         
     def _rounded(self, f: float) -> float:
-        return round(f, 3)
+        return round(f, 2)
     
     def __repr__(self) -> str:
         return self.__str__()

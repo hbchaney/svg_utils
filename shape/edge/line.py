@@ -10,12 +10,10 @@ class Line(Edge) :
         self._slope = None 
         self._midpoint = None 
         self._intercept = None
-        
-    def __str__(self): 
-        return f'slope : {self.slope}\nmidpoint : {self.midpoint}'
+    
     
     def __repr__(self) -> str:
-        return f'(Start {self._start} , End {self._end})'
+        return f'<Start {self._start} , End {self._end}, Slope {self.slope}>'
         
     @property 
     def slope(self) -> float:
@@ -65,7 +63,7 @@ class Line(Edge) :
         #determine if lines have the same slope 
         if self.slope != other.slope : 
             return False
-        if self.intercept != self.intercept: 
+        if round(self.intercept,2) != round(other.intercept,2): 
             return False 
         
         max_distance = self.radius + other.radius
