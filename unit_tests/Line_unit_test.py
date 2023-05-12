@@ -37,6 +37,22 @@ def Line_Crossing_Types():
     print(l1.cross_type(l2))
     
     
-Line_test()
+def More_Line_Crossing(): 
+    l1 = Line (Coordinate(120,190),
+               Coordinate(120,170))
+    
+    
+    l2 = Line (Coordinate(120,190),
+               Coordinate(120,170.001))
+    
+    print("radius")
+    print(l1.radius == l2.radius)
+    print(l1.midpoint == l2.midpoint)
+    
+    print(l1.crossing(l2))
+    print(l1.cross_type(l2))
 
+
+# Line_test()
+More_Line_Crossing()
 

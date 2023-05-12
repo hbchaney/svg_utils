@@ -13,6 +13,9 @@ class Line(Edge) :
         
     def __str__(self): 
         return f'slope : {self.slope}\nmidpoint : {self.midpoint}'
+    
+    def __repr__(self) -> str:
+        return f'(Start {self._start} , End {self._end})'
         
     @property 
     def slope(self) -> float:
@@ -51,11 +54,11 @@ class Line(Edge) :
             return self._radius
     
     def _get_slope(self) -> float:
-        if (self._start.x - self._end.x == 0):
+        if (self._start.x == self._end.x):
             return 'v'
         vertical_change = self._end.y - self._start.y
         horiz_change = self._end.x - self._start.x
-        return vertical_change / horiz_change
+        return round(vertical_change / horiz_change, 3)
     
     def crossing(self, other: "Line") -> bool: 
         
@@ -82,8 +85,13 @@ class Line(Edge) :
         4 : returns a new line to replace self with delete the other line
         '''
         
-        if self._radius * 2 == other.radius * 2 and self.midpoint == other.midpoint: 
+        print("comparing : ")
+        print(self)
+        print(other)
+        
+        if self._radius == other.radius and self.midpoint == other.midpoint: 
             return 1
+        
         m_d = self.midpoint.distance(other.midpoint)
         if m_d + other.radius < self._radius: 
             return 3
@@ -103,6 +111,8 @@ class Line(Edge) :
                 top = max(checks,key = lambda point : point.x) 
                 bottom = min(checks, key = lambda point : point.x) 
                 return Line(top,bottom) 
+            
+        
 
     def get_path(self) -> str: 
         '''

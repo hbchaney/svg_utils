@@ -11,6 +11,7 @@ class ShapeManager:
         
     def add_and_compare_shape(self, new_shape : Shape) -> None: 
         
+        print(new_shape)
         for i in range(len(self.shape_list)): 
             x = new_shape.compare_lines(self.shape_list[i])
             if x is not None: 

@@ -59,4 +59,9 @@ class Coordinate:
     def __sub__(self,other: "Coordinate") -> "Coordinate": 
         return Coordinate(self.x - other.x,self.y - other.y)
     
+    def __eq__(self, other : "Coordinate" ) -> bool:
+        if self.x == other.x and self.y == other.y: 
+            return True
+        return False 
+    
     

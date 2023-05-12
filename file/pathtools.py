@@ -15,6 +15,7 @@ def read_paths(input_file, output_file):
     paths, attr, svg_attr = svgpathtools.svg2paths2(input_file)
     manager : ShapeManager = ShapeManager()
     
+    print(paths) 
     other_path = [] 
     shape_list = [] 
     
@@ -46,9 +47,10 @@ def read_paths(input_file, output_file):
         paths.append(svgpathtools.Path(*l))
     
     other_path = svgpathtools.Path(*other_path)
-    paths.append(other_path)
+    if len(other_path) != 0: 
+        paths.append(other_path)
     
-    # print(svg_attr)
+    print(paths)
     
     svgpathtools.wsvg(paths,svg_attributes=svg_attr, filename = output_file)
     

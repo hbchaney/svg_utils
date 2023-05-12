@@ -60,6 +60,8 @@ class Shape:
                 
                 if self.edges[i].crossing(other.edges[j]): 
                     crs_type = self.edges[i].cross_type(other.edges[j])
+                    print("compare result : ")
+                    print(crs_type)
 
                     if type(crs_type) == Line: 
                         self.edges[i] = crs_type
