@@ -11,11 +11,13 @@ import svgpathtools
 from shape import Shape, Coordinate, Edge, Line
 from shape.shape_manager import ShapeManager
 
+import logging
+
 def read_paths(input_file, output_file): 
     paths, attr, svg_attr = svgpathtools.svg2paths2(input_file)
     manager : ShapeManager = ShapeManager()
     
-    print(paths) 
+    logging.debug(f'initial paths :\n{paths}')
     other_path = [] 
     shape_list = [] 
     
@@ -47,10 +49,11 @@ def read_paths(input_file, output_file):
         paths.append(svgpathtools.Path(*l))
     
     other_path = svgpathtools.Path(*other_path)
+    logging.debug(f'nonline ')
     if len(other_path) != 0: 
         paths.append(other_path)
     
-    print(paths)
+    logging.debug(f'final paths :\n{paths}')
     
     svgpathtools.wsvg(paths,svg_attributes=svg_attr, filename = output_file)
     

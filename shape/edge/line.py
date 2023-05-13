@@ -1,6 +1,6 @@
 from .edge import Edge
 from .coordinate import Coordinate
-
+import logging
 
 class Line(Edge) : 
     
@@ -83,10 +83,7 @@ class Line(Edge) :
         4 : returns a new line to replace self with delete the other line
         '''
         
-        print("comparing : ")
-        print(self)
-        print(other)
-        
+        logging.debug(f'comparing : {self} and {other}')
         if self._radius == other.radius and self.midpoint == other.midpoint: 
             return 1
         

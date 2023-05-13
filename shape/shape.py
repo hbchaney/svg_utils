@@ -4,6 +4,8 @@ from .edge import Edge
 from .edge import Line
 from .bounding_box import BoundingBox
 
+import logging
+
 class Shape: 
     """
     shape class that contains edge data 
@@ -12,6 +14,7 @@ class Shape:
     def __init__(self,
                  _edges : list[Edge],
                  _id : str) -> None:  
+        logging.debug("initializing shape")
         self.edges = _edges 
         self._id = _id 
         self.__get_bounding_box()
@@ -53,8 +56,6 @@ class Shape:
             if type(edges) == Line and collision_box.edge_intersection(edges): 
                 other_to_compare.append(i) 
 
-        print("other to compare")
-        print(other_to_compare)
         #compare each line the in collision box to see if there are any collisions 
         for i in self_to_compare: 
 
@@ -62,8 +63,7 @@ class Shape:
                 
                 if self.edges[i].crossing(other.edges[j]): 
                     crs_type = self.edges[i].cross_type(other.edges[j])
-                    print("compare result : ")
-                    print(crs_type)
+                    logging.debug(f'cross type :\n{crs_type}')
 
                     if type(crs_type) == Line: 
                         self.edges[i] = crs_type
@@ -80,15 +80,12 @@ class Shape:
         self_to_delete = sorted(list(set(self_to_delete)),reverse=True)
         other_to_delete = sorted(list(set(other_to_delete)),reverse=True) 
         
-        print(self_to_delete)
-        print(other_to_delete)
+        logging.debug(f"self indexes to delete :\n{self_to_delete}")
+        logging.debug(f'other indexes to delete :\n{other_to_delete}')
 
-        print("deleting : ")
         for values in self_to_delete: 
-            print(self.edges[values])
             del self.edges[values] 
         for values in other_to_delete: 
-            print(other.edges[values])
             del other.edges[values]
 
         return other

@@ -1,5 +1,7 @@
 from shape import Shape
 
+import logging
+
 class ShapeManager: 
     '''
     stores all shapes and compares them for collisions 
@@ -11,7 +13,7 @@ class ShapeManager:
         
     def add_and_compare_shape(self, new_shape : Shape) -> None: 
         
-        print(new_shape)
+        logging.debug(f'adding shape :\n{new_shape}')
         for i in range(len(self.shape_list)): 
             x = new_shape.compare_lines(self.shape_list[i])
             if x is not None: 
@@ -22,6 +24,7 @@ class ShapeManager:
             if x is not None: 
                 self.shape_list[i] = x 
         
+        logging.debug(f'cleaned shape : {new_shape}')
         self.shape_list.append(new_shape) 
         
     def get_max_x(self) -> int: 
