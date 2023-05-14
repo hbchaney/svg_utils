@@ -1,6 +1,6 @@
-from shape import Shape
-
 import logging
+
+from .shape import Shape
 
 class ShapeManager: 
     '''
@@ -41,10 +41,4 @@ class ShapeManager:
             max_y = max(s.get_max_y(), max_y) 
             
         return max_y
-        
-    
-
-
-
-    
 
