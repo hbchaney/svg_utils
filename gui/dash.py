@@ -35,7 +35,10 @@ class Dash(qtw.QWidget):
             self._output_pane.setPlainText(e.__str__())
             return
      
-        process = subprocess.run([py, parsing_script, in_file, out_file], stdout=subprocess.PIPE)
+        process = subprocess.run(
+            [py, parsing_script, in_file, out_file, "--debug"],
+            stdout=subprocess.PIPE
+        )
         if process.returncode == 0:
             out_str = (
                 f"Success!\n"
