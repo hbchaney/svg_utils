@@ -9,4 +9,5 @@ class MainWindow(qtw.QMainWindow):
 
         self._dash = Dash()
         self.setCentralWidget(self._dash)
+        self.setGeometry(600,600,800,600)
         
