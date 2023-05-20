@@ -21,6 +21,8 @@ class Dash(qtw.QWidget):
         self._grid = qtw.QGridLayout()
         self._grid.addWidget(self._input_pane, 0, 0)
         self._grid.addWidget(self._output_pane, 0, 1)
+        self._grid.setColumnStretch(0,3)
+        self._grid.setColumnStretch(1,1)
         self.setLayout(self._grid)
 
     def _on_button_press(self):

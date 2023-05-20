@@ -14,7 +14,7 @@ class MainWindow(qtw.QMainWindow):
 
         self._dash = Dash()
         self.setCentralWidget(self._dash)
-        self.setGeometry(600,600,800,600)
+        self.setGeometry(600,600,1200,600)
         
         # Is Windows
         if os.name == 'nt':
