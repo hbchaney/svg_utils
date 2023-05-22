@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 import subprocess
 import sys
@@ -36,22 +37,36 @@ class Dash(qtw.QWidget):
         except Exception as e:
             self._output_pane.setPlainText(e.__str__())
             return
-     
-        process = subprocess.run(
-            [py, parsing_script, in_file, out_file, "--debug"],
-            stdout=subprocess.PIPE
-        )
-        if process.returncode == 0:
+        error = False
+        try:
+
+            process = subprocess.run(
+                [py, parsing_script, in_file, out_file, "--debug"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True
+            )
+        except:
+            error = True
+        if process.returncode == 0 and not error:
             out_str = (
                 f"Success!\n"
                 + f"A trimmed version of the .svg file at\n\n{in_file}\n\n"
                 + f"has been saved to\n\n{out_file}\n\n!"
             )
         else:         
+            log_name = f"trimmer_log_{datetime.now(): %Y-%m-%d.%H-%M-%S}.txt"
+            log_folder = os.path.dirname(out_file)
+            log_path = os.path.join(log_folder, log_name)
+            with open(log_path, 'w') as f:
+                f.write(process.stdout)
+            
             out_str = (
                 f"Failed trimming svg :(\n"
                 + f"Could not trim the .svg file at {in_file}.\n\n"
-                + f"Send Harrison a screenshot of this: {process.stdout}"
+                + f"The log file was saved to:\n\n{log_path}\n\n"
+                + f"Please send the .svg file and the log to Harrison in an"
+                + f" email."
             )
         
         self._output_pane.setPlainText(out_str)
